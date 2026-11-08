@@ -9,24 +9,35 @@ import com.taskflow.taskflow.service.AuthService;
 
 import jakarta.validation.Valid;
 
+import com.taskflow.taskflow.dto.LoginRequest;
+import com.taskflow.taskflow.dto.LoginResponse;
+
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+
 @RestController
 @RequestMapping("/api/auth")
 public class AuthController {
 
-    private final AuthService authService;
+	private final AuthService authService;
 
-    public AuthController(AuthService authService) {
-        this.authService = authService;
-    }
+	public AuthController(AuthService authService) {
+		this.authService = authService;
+	}
 
-    @PostMapping("/register")
-    public ResponseEntity<String> register(
-            @Valid @RequestBody RegisterRequest request) {
+	@PostMapping("/register")
+	public ResponseEntity<String> register(@Valid @RequestBody RegisterRequest request) {
 
-        String response = authService.register(request);
+		String response = authService.register(request);
 
-        return ResponseEntity
-                .status(HttpStatus.CREATED)
-                .body(response);
-    }
+		return ResponseEntity.status(HttpStatus.CREATED).body(response);
+	}
+
+	@PostMapping("/login")
+	public ResponseEntity<LoginResponse> login(@Valid @RequestBody LoginRequest request) {
+
+		LoginResponse response = authService.login(request);
+
+		return ResponseEntity.ok(response);
+	}
 }

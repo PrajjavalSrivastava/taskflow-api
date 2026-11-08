@@ -22,9 +22,13 @@ public class Task {
     private String description;
 
     @NotNull(message = "Status is required")
+    @Enumerated(EnumType.STRING)
+    @Column(nullable = false)
     private Status status;
 
     @NotNull(message = "Priority is required")
+    @Enumerated(EnumType.STRING)
+    @Column(nullable = false)
     private Priority priority;
 
     private LocalDate dueDate;
